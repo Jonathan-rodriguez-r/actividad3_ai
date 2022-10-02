@@ -1,8 +1,11 @@
-# dark blue for end nodes
-# light blue for path
-# dark green for currently searched nodes
-# light green for already searched nodes
-# white for empty
+# Actividad 3 - Búsqueda y sistemas basados en 
+# Jonathan Rodriguez
+# Autor : AaronHe7
+# Azul oscuro para punto de partida y destino
+# Negro para obstaculos o puntos de bloqueo
+# Azul Claro para el mejor camino
+# Blanco para lugar vacio
+
 import pygame, math, sys
 from a_star import *
 
@@ -21,15 +24,17 @@ BLACK = (0, 0, 0)
 GRAY = (128, 128, 128)
 
 font = pygame.font.SysFont('Arial', 10)
-text1 = font.render('Start/End Node (Right Click)', False, BLACK)
-text2 = font.render('Wall Node (Left Click)', False, BLACK)
-text3 = font.render('Start', False, WHITE)
-text4 = font.render('Undo', False, WHITE)
-text5 = font.render('Clear', False, WHITE)
+text1 = font.render('Punto de Partida/Destino (Click Derecho)', False, BLACK)
+text2 = font.render('Obstaculos (Click Izquierdo)', False, BLACK)
+text3 = font.render('Iniciar', False, WHITE)
+text4 = font.render('Atras', False, WHITE)
+text5 = font.render('Limpiar', False, WHITE)
+text6 = font.render('Jonathan Rodriguez', False, BLACK)
+
 
 icon = pygame.image.load('./img/icon.png')
 pygame.display.set_icon(icon)
-pygame.display.set_caption('Pathfinder')
+pygame.display.set_caption('Jonathan Rodriguez Pathfinder')
 
 def update_display():
   display.fill(WHITE)
@@ -39,15 +44,16 @@ def update_display():
   display.blit(text1, (25, 5))
   display.blit(text2, (215, 5))
 
-  # Buttons
+  # Botones
   pygame.draw.rect(display, BLACK, (355, 7, 40, 10))
   pygame.draw.rect(display, BLACK, (435, 7, 40, 10))
   pygame.draw.rect(display, BLACK, (515, 7, 40, 10))
 
   display.blit(text3, (362, 6))
-  display.blit(text4, (443, 6))
+  display.blit(text4, (445, 6))
   display.blit(text5, (524, 6))
 
+# Grilla
 rows = 40
 cols = 40
 grid = []
@@ -120,17 +126,17 @@ def draw_tile(x, y, tile_type):
 
 def pathfind():
   if not start or not end:
-    print('Please mark both endpoint nodes.')
+    print('Por favor marca ambos puntos')
     return
   path = a_star(grid, start, end)
   if not path:
-    print('No possible paths.')
+    print('No hay cominos posibles')
     return
   else:
     distance = round(path[-1].f_score, 2)
     if distance % 1 == 0:
       distance = int(distance)
-    print('Path found with distance ' + str(distance) + '.')
+    print('Costo del camino ' + str(distance) + '.')
   for node in path:
     if node != start and node != end:
       node.type = 'path'
@@ -156,10 +162,10 @@ while True:
       x = mouse_pos[0]
       y = mouse_pos[1]
       
-      # Start button
+      # Botón de inicio
       if x >= 355 and x <= 395 and y >= 7 and y <= 17:
         pathfind()
-      # Undo button
+      # Botón atras
       elif x >= 435 and x <= 475 and y >= 7 and y <= 17:
         if len(undo_log) > 0:
           node = undo_log[-1]
@@ -172,18 +178,18 @@ while True:
           update_grid(display, grid)
           undo_log.pop(-1)
 
-      # Clear button
+      # Botón Limpiar
       elif x >= 515 and x <= 555 and y >= 7 and y <= 17:
         reset_grid()
 
-    # Right click adds start/end node
+    # Click derecho
     if event.type == pygame.MOUSEBUTTONDOWN and event.button == 3:
       mouse_pos = pygame.mouse.get_pos()
       x = mouse_pos[0]
       y = mouse_pos[1]
       draw_tile(x, y, 'endpoint')
 
-    # Left click adds wall node
+    # Click Izquierdo
     if pygame.mouse.get_pressed()[0]:
       mouse_pos = pygame.mouse.get_pos()
       x = mouse_pos[0]
