@@ -1,5 +1,7 @@
 # Pathfinder
 Video demo: https://youtu.be/MiYJMIFpbcw
+Autor Original : @AaronHe7
+Cambios : Jonathan Rodriguez
 
 <img src="img/example.png" height="200">
 
@@ -14,11 +16,11 @@ Este es un algoritmo de búsqueda de rutas escrito en Python y que se muestra en
 <a name="installation"></a>
 ## Instalación
 
-Primero, instala pygame leyendo las instrucciones [here](https://www.pygame.org/wiki/GettingStarted).
+Primero, instala pygame leyendo las instrucciones [Aquí](https://www.pygame.org/wiki/GettingStarted).
 
 
 Una vez que esté instalado, ingrese a la carpeta del buscador de rutas y ejecute pathfinding.py usando Python 3. Los métodos pueden variar, pero aquí hay un ejemplo de un comando:
-> python3 pathfinder.py
+> python pathfinder.py
 
 
 <a name="a-star"></a>
@@ -55,6 +57,7 @@ Dado que el nodo 2 tiene la puntuación f más baja (5), se busca a continuació
 
 Ahora el nodo 4 tiene la puntuación f más baja de 5, por lo que se busca. Luego, se analiza el nodo objetivo, por lo que el programa finaliza. La ruta óptima de este algoritmo es, por lo tanto, del nodo 1 al nodo 2 al nodo 4 al nodo 5.
 
+<a name="#how-it-is-used-here"></a>
 ### Como se usa?
 En el programa, cada nodo que no está en los bordes o esquinas tiene ocho vecinos. Para cualquier paso vertical u horizontal, el algoritmo lo registra como una distancia de 1. Para cualquier paso diagonal, la distancia se registra como la raíz cuadrada de 2.
 
